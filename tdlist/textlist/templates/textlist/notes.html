@@ -1,0 +1,204 @@
+{% extends 'textlist/base.html' %}
+
+{% block content %}
+<!-- <h1>{{title}}</h1>
+<p>Содержимое главной страницы</p>
+{% for item in all_customers %}
+    <h2>{{item.name_cust}}</li></h2>
+    <h3>{{item.password_cust}}</h3>
+{% endfor %} -->
+<div class="main-container">
+    <!-- Горизонтальное меню -->
+
+    <div class="days-of-week">
+        <ul class="listdo">
+            <li><button class="dolist-element todl-bet">ПН</button></li>
+            <li><button class="dolist-element todl-bet">ВТ</button></li>
+            <li><button class="dolist-element todl-bet">СР</button></li>
+            <li><button class="dolist-element todl-bet">ЧТ</button></li>
+            <li><button class="dolist-element todl-bet">ПТ</button></li>
+            <li><button class="dolist-element todl-bet">СБ</button></li>
+            <li><button class="dolist-element todl-bet">НД</button></li>
+        </ul>
+    </div>
+
+    <!-- <div class="vertical-block">
+        <ul class="listdo">
+            <a href="#">
+                <li class="dolist-element">
+                    <b>9:30</b>
+                </li>
+            </a>
+            <a href="#">
+                <li class="dolist-element">
+                    <b>10:30</b>
+                </li>
+            </a>
+            <a href="#">
+                <li class="dolist-element">
+                    <b>11:30</b>
+                </li>
+            </a>
+            <a href="#">
+                <li class="dolist-element">
+                    <b>12:30</b>
+                </li>
+            </a>
+            <a href="#">
+                <li class="dolist-element">
+                    <b>13:30</b>
+                </li>
+            </a>
+            <a href="#">
+                <li class="dolist-element">
+                    <b>14:30</b>
+                </li>
+            </a>
+            <a href="#">
+                <li class="dolist-element">
+                    <b>+</b>
+                </li>
+            </a>
+        </ul>
+    </div> -->
+
+    <div class="container-vertical">
+
+        <button class="vertical-block-todo plus">
+            <img src="../static/textlist/images/plus.svg" class="plus1">
+        </button>
+
+        <div class="vertical-block-todo">
+            <div class="right-side-button">
+                <input type="time" id="time" name="time" class="title-time" />
+                <div>
+                    <button class="refactor-buttons telegram-button"></button>
+                    <button class="refactor-buttons delete-button"></button>
+                    <button class="refactor-buttons edit-button"></button>
+                </div>
+            </div>
+            <div class="line-from-todo-det"></div>
+            <textarea maxlength="175" wrap="soft" class="title-text">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis quod, doloribus dolore est perferendis nobis laborum animi, ex harum, corporis impedit. Delectus corrupti repellat hic mollitia natus perferendis neque molestiae!</textarea>
+            <div class="line-from-todo-det-under-title"></div>
+            <p class="todotext">
+                fsdfsfdsdfsdf
+            </p>
+        </div>
+        <div class="vertical-block-todo">
+            <div class="right-side-button">
+                <p class="title-time"><b>- 8:30</b></p>
+                <div>
+                    <button class="refactor-buttons telegram-button"></button>
+                    <button class="refactor-buttons delete-button"></button>
+                    <button class="refactor-buttons edit-button"></button>
+                </div>
+            </div>
+            <div class="line-from-todo-det"></div>
+            <p class="title-text">Lorem ipsum dolor sit amefgsfsfsdfsdfsdfsdfsdfst, consectetur adipisicing elit.
+                Aperiam animi dolores sunt.
+            </p>
+            <div class="line-from-todo-det-under-title"></div>
+            <p class="todotext">
+
+            </p>
+        </div>
+        <div class="vertical-block-todo">
+            <div class="right-side-button">
+                <p class="title-time"><b>- 8:30</b></p>
+                <div>
+                    <button class="refactor-buttons telegram-button"></button>
+                    <button class="refactor-buttons delete-button"></button>
+                    <button class="refactor-buttons edit-button"></button>
+                </div>
+            </div>
+            <div class="line-from-todo-det"></div>
+            <p class="title-text">Lorem ipsum dolor sit amefgsfsfsdfsdfsdfsdfsdfst, consectetur adipisicing elit.
+                Aperiam animi dolores sunt.
+            </p>
+            <div class="line-from-todo-det-under-title"></div>
+            <p class="todotext">
+
+            </p>
+        </div>
+
+        <div class="vertical-block-todo">
+            <div class="right-side-button">
+                <p class="title-time"><b>- 8:30</b></p>
+                <div>
+                    <button class="refactor-buttons telegram-button"></button>
+                    <button class="refactor-buttons delete-button"></button>
+                    <button class="refactor-buttons edit-button"></button>
+                </div>
+            </div>
+            <div class="line-from-todo-det"></div>
+            <p class="title-text">Lorem ipsum dolor sit amefgsfsfsdfsdfsdfsdfsdfst, consectetur adipisicing elit.
+                Aperiam animi dolores sunt.
+            </p>
+            <div class="line-from-todo-det-under-title"></div>
+            <p class="todotext">
+
+            </p>
+        </div>
+        
+        <div class="vertical-block-todo">
+            <div class="right-side-button">
+                <p class="title-time"><b>- 8:30</b></p>
+                <div>
+                    <button class="refactor-buttons telegram-button"></button>
+                    <button class="refactor-buttons delete-button"></button>
+                    <button class="refactor-buttons edit-button"></button>
+                </div>
+            </div>
+            <div class="line-from-todo-det"></div>
+            <p class="title-text">Lorem ipsum dolor sit amefgsfsfsdfsdfsdfsdfsdfst, consectetur adipisicing elit.
+                Aperiam animi dolores sunt.
+            </p>
+            <div class="line-from-todo-det-under-title"></div>
+            <p class="todotext">
+
+            </p>
+        </div>
+
+        <div class="vertical-block-todo">
+            <div class="right-side-button">
+                <p class="title-time"><b>- 8:30</b></p>
+                <div>
+                    <button class="refactor-buttons telegram-button"></button>
+                    <button class="refactor-buttons delete-button"></button>
+                    <button class="refactor-buttons edit-button"></button>
+                </div>
+            </div>
+            <div class="line-from-todo-det"></div>
+            <p class="title-text">Lorem ipsum dolor sit amefgsfsfsdfsdfsdfsdfsdfst, consectetur adipisicing elit.
+                Aperiam animi dolores sunt.
+            </p>
+            <div class="line-from-todo-det-under-title"></div>
+            <p class="todotext">
+
+            </p>
+        </div>
+
+
+        <!-- <div class="vertical-block-todo">
+            <div class="right-side-button">
+                <p class="title-time"><b>- 8:30</b></p>
+                <div>
+                    <button class="refactor-buttons telegram-button"></button>
+                    <button class="refactor-buttons delete-button"></button>
+                    <button class="refactor-buttons edit-button"></button>
+                </div>
+            </div>
+            <div class="line-from-todo-det"></div>
+            <p class="title-text">Lorem ipsum dolor sit amefgsfsfsdfsdfsdfsdfsdfst, consectetur adipisicing elit.
+                Aperiam animi dolores sunt.
+            </p>
+            <div class="line-from-todo-det-under-title"></div>
+            <p class="todotext">
+
+            </p>
+        </div> -->
+
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,571 @@
+Указываем box sizing
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Убираем внутренние отступы */
+ul[class],
+ol[class] {
+  padding: 0;
+}
+
+/* Убираем внешние отступы */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Выставляем основные настройки по-умолчанию для body */
+body {
+  min-height: 100vh;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  line-height: 1.5;
+}
+
+button{
+	border: none;
+}
+
+/* Удаляем стандартную стилизацию для всех ul и il, у которых есть атрибут class*/
+ul[class],
+ol[class] {
+  list-style: none;
+}
+
+/* Элементы a, у которых нет класса, сбрасываем до дефолтных стилей */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Упрощаем работу с изображениями */
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* Указываем понятную периодичность в потоке данных у article*/
+article > * + * {
+  margin-top: 1em;
+}
+
+/* Наследуем шрифты для инпутов и кнопок */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+
+input{
+	background: transparent;
+	border: none;
+}
+
+/* Удаляем все анимации и переходы для людей, которые предпочитай их не использовать */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+body{
+	background: url("../images/forest.jpg") no-repeat;
+	background-position: center;
+	background-size: cover;
+	background-attachment: fixed;
+	max-width: 100%;
+	backdrop-filter: blur(5px);
+	margin: 0px;
+	font-family: sans-serif;
+}
+
+
+a{
+	text-decoration: none;
+}
+
+.liitem {
+	color: #c9d1c8;
+	padding: 5px 10px;
+	font-weight: 500;
+	font-size: 20px;
+	margin: 0px 20px
+}
+
+.liitem:hover{
+	color: #5B7065;
+	text-shadow: green 5px;
+	font-weight: 400;
+}
+
+.bga {
+	background-color: rgb(11,22,24);
+	height: 15%;
+ 	width: 100%;
+
+}
+
+.navbar{
+	text-align: right;
+	flex-direction: column;
+	position: relative;
+}
+
+
+.plus1{
+	width: 50px;
+	height: 50px;
+}
+
+.mainmenu-ul{
+	margin: 0px;
+	display: flex;
+	list-style: none;
+	flex-direction: row;
+	min-height: 60px;
+	align-items: center;
+	justify-content: center;
+}
+
+.nav-item{
+	text-align: center;
+}
+
+.dolist-element {
+	padding: 10px 20px;
+	color: #c9d1d8;
+	border-bottom: solid 1px rgb(112, 112, 112);
+	background-color: rgba(0, 0, 0, 0.3);
+	backdrop-filter: blur(10px);
+	border-radius: 20px;
+	margin: 0px 0px 5px 15px;
+	font-size: 20px;
+	font-style: bold;
+	text-align: center;
+}
+
+.dolist-element:hover{
+	border-color: rgb(95, 95, 95);
+	border: solid 1px 5px 1px 0px;
+	text-decoration: none;
+	background-color: rgba(51, 51, 51, 0.5);
+	transition: 0.5s;
+
+}
+
+.days-of-week{
+	list-style-type: none;
+	padding: 0px;
+	height: 100%;
+	top: 0px;
+	position: sticky;
+}
+
+.main-container{
+	display: flex;
+	margin-top: 20px;
+	padding: 0px 10% 0px 10%;
+}
+  
+.vertical-block-todo {
+	flex-grow: 1;
+	position: relative;
+	background-color: rgba(0, 0, 0, 0.3);
+	backdrop-filter: blur(10px);
+	border-bottom: solid 1px rgb(112, 112, 112);
+	border-radius: 30px;
+	padding: 20px;
+	margin: 0px 10px 10px 10px;
+	transition: 0.5s;
+}
+
+.plus{
+	text-align: center;
+	padding: 5px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.title-text{
+	color: #c9d1d8;
+	font-size: 30px;
+	margin: 10px 0px;
+}
+
+.vertical-block-todo textarea{
+	resize: none;
+	width: 100%;
+	white-space: normal;
+	background: transparent;
+	border: none;
+	height: auto;
+	
+}
+
+.title-time{
+	color: #c9d1d8;
+	font-size: 30px;
+	margin: 10px 0px;
+}
+
+.line-from-todo-det{
+	border-bottom: 2px solid #c1c9cf;
+}
+
+.line-from-todo-det-under-title{
+	border-bottom: 1px solid rgba(193, 201, 207, 0.12);
+}
+
+.todotext{
+	padding-top: 10px;
+	color: #c9d1d8;
+	font-size: 15px;
+	margin: 0;
+}
+
+.tododays{
+	list-style: none;
+}
+
+.todl-bet{
+	border-radius: 10px 20px 30px 40px;
+	/* margin-left: 5px; */
+	background-color: rgba(255, 255, 255, 0.1);
+	backdrop-filter: blur(10px);
+	cursor: pointer;
+}
+
+.container-vertical{
+	display: flex;
+	flex-direction: column;
+}
+
+.edit-button{
+	width: 30px;
+	height: 30px;
+	border: none;
+	background: url("../images/edit-tool1.png");	
+	background-size: cover;
+}
+
+.edit-button:hover{
+	width: 30px;
+	height: 30px;
+	border: none;
+	background-size: cover;
+	background: url("../images/edit-hover1.png");
+	filter: drop-shadow(5px 5px 0.3rem #c9d1c8);
+}
+
+.delete-button{
+	width: 30px;
+	height: 30px;
+	border: none;
+	background: url("../images/delete_button_hover.png");	
+	background-size: cover;
+}
+
+.delete-button:hover{
+	width: 30px;
+	height: 30px;
+	border: none;
+	background-size: cover;
+	background: url("../images/delete_button.png");
+	filter: drop-shadow(5px 5px 0.3rem #c9d1c8);
+}
+
+.telegram-button{
+	width: 30px;
+	height: 30px;
+	border: none;
+	background-size: cover;
+	background: url("../images/telegram-hover.png");
+	
+}
+
+.telegram-button:hover{
+	width: 30px;
+	height: 30px;
+	border: none;
+	background-size: cover;
+	background: url("../images/telegram.png");
+	filter: drop-shadow(5px 5px 0.3rem #c9d1c8);
+}
+
+.vertical-block-todo:hover{
+	box-shadow: 5px 5px 5px rgba(201,209,216, 0.4);
+	
+}
+
+.refactor-buttons{
+	margin: 10px;
+	cursor: pointer;
+}
+
+.right-side-button{	
+	display: flex;
+	justify-content: space-between;
+}
+
+.login-container-main{
+	margin-top: 10%;
+	position: relative;
+}
+
+.login-container{
+	background-color: rgba(56, 71, 76, 0.6);
+	margin: auto;
+	border-radius: 30px;
+	border: solid #1b1f1b 5px;
+	flex-grow: 1;
+}
+
+.login h2{
+	color: #c9d1c8;
+	
+}
+
+.textbox-auth{
+	background-color: #c9d1c8;
+	border-radius: 20px;
+	color: #0e1917;
+	padding: 5px;
+	padding-left: 10px;
+	margin-bottom: 10px;
+}
+
+.login span{
+	color: #c9d1c8;
+}
+
+.signin{
+	background: none;
+	border-radius: 20px;
+	border: 1px #5B7065 solid;
+	padding: 5px 20px;
+	color: #c1c9cf;
+	
+}
+
+.signin:hover{
+	color: #334549;
+	background-color: #b0b9be;
+	transition: 0.5s;
+}
+
+.signin:focus{
+	transition: 0.5s;
+}
+
+.text-log{
+	margin-left: 10px;
+	padding-bottom: 5px;
+}
+
+
+/*--------------------------dasdasdasd-------------*/
+@keyframes rotate {
+	100% {
+		transform: rotate(1turn);
+	}
+}
+
+.login-container {
+	position: relative;
+	z-index: 0;
+	max-width: 400px;
+	max-height: 300px;
+	border-radius: 10px;
+	overflow: hidden;
+	padding: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: sans-serif;
+	font-weight: bold;
+	
+	&::before {
+		content: '';
+		position: absolute;
+		z-index: -2;
+		left: -50%;
+		top: -50%;
+		width: 200%;
+		height: 200%;
+		background-repeat: no-repeat;
+		background-size: 50% 50%, 50% 50%;
+		background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+		background-image: linear-gradient(#0a1d0f, #0a1d0f), linear-gradient(#0e1917, #0e1917), linear-gradient(#1c2a2d, #1c2a2d), linear-gradient(#35484f, #35484f);
+		animation: rotate 50s linear infinite;
+	}
+	
+	&::after {
+		content: '';
+		position: absolute;
+		z-index: -1;
+		left: 6px;
+		top: 6px;
+		width: calc(100% - 12px);
+		height: calc(100% - 12px);
+		background-color: rgba(56, 71, 76, 0.5);
+		backdrop-filter: blur(50px);
+		border-radius: 5px;
+	}
+}
+/*--------------------------dasdasdasd-------------*/
+
+
+
+
+@media (max-width: 750px){
+	.title-text{
+		color: #c9d1d8;
+		font-size: 15px;
+		font-weight: 600;
+		margin: 0px 0px 3px 0px;
+	}
+	
+	.title-time{
+		color: #c9d1d8;
+		font-size: 20px;
+		margin: 0px 0px 3px 0px;
+	}
+
+	.vertical-block{
+		padding: 0;
+		display: none;
+	}
+
+	.todotext{
+		font-size: 13px;
+		margin: 0px 0px 3px 0px;
+		padding: 0px;
+	}
+	
+
+	.listdo{
+		position: relative;
+		display: flex;
+		margin: 0px 0px 10px 0px;
+		justify-content: center;
+	}
+
+	.todl-bet{
+		flex-grow: 1;
+		border-radius: 0px 0px 25px 25px;
+		background-color: rgba(0, 0, 0, 0.1);
+		border: solid 1px;
+		border-top: 0px;
+		/* transform: rotate(90deg); */
+		font-size: 14px;
+		margin: 0px;
+		padding: 13px;
+		align-items: center;
+	}
+
+
+	.main-container{
+		flex-direction: column;
+		margin-top: 0px;
+		padding: 0px 0px 0px 0px;
+		align-items: center;
+	}
+
+	.liitem {
+		color: #c9d1c8;
+		margin-left: 10px;
+		padding: 10px;
+		font-size: 14px;
+		margin: 0px 5px
+	}
+	
+	.liitem:hover{
+		color: #5B7065;
+		text-shadow: green 5px;
+		font-weight: 400;
+		font-size: 12px;
+		transition: 5s;
+	}
+
+	.plus1{
+		width: 25px;
+		height: 25px;
+	}
+
+	.dolist-element{
+		margin: 0px 5px 10px 5px;
+		padding: 10px 10px;
+		color: white;
+		background-color: rgba(0, 0, 0, 0.5);
+		
+	}
+	.edit-button{
+		width: 20px;
+		height: 20px;
+		margin: 3px;
+	}
+	
+	.edit-button:hover{
+		width: 20px;
+		height: 20px;
+		background-size: cover;
+	}
+
+	.delete-button{
+		width: 20px;
+		height: 20px;
+		margin: 3px;
+	}
+	
+	.delete-button:hover{
+		width: 20px;
+		height: 20px;
+		background-size: cover;
+	}
+
+	.telegram-button{
+		width: 20px;
+		height: 20px;
+		margin: 3px;
+	}
+
+	.telegram-button:hover{
+		width: 20px;
+		height: 20px;
+		margin: 3px;
+	}
+
+	.right-side-button{	
+		display: flex;
+		justify-content: space-between;
+	}
+	.days-of-week{
+		z-index: 100;
+	}
+}
+
+@media (max-width: 400px){
+	.dolist-element{
+		margin: 0px 1px 10px 1px;
+	}
+}

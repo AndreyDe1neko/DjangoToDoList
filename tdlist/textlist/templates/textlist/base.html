@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <link type="text/css" href="{% static 'textlist/css/styles.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+        <!-- Вертикальное меню -->
+    <nav class="navbar bga">
+        {% block mainmenu %}
+        <ul class="mainmenu-ul">
+            {% for m, link in menu.items %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{link}}">
+                    <div class="liitem">{{m}}</div>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+        {% endblock mainmenu %}
+    </nav>
+
+    
+    {% block content %}
+
+    {% endblock %}
+
+    <script src="{% static 'textlist/js/scripts.js' %}"></script>
+</body>
+
+</html>
