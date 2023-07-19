@@ -1,0 +1,50 @@
+
+Для таблицы Customer:
+from textlist.models import Customer
+customer1 = Customer.objects.create(name_cust="John Smith", mail_cust="john.smith@example.com", password_cust="password1")
+customer2 = Customer.objects.create(name_cust="Alice Johnson", mail_cust="alice.johnson@example.com", password_cust="password2")
+customer3 = Customer.objects.create(name_cust="Bob Davis", mail_cust="bob.davis@example.com", password_cust="password3")
+customer4 = Customer.objects.create(name_cust="Emma Wilson", mail_cust="emma.wilson@example.com", password_cust="password4")
+customer5 = Customer.objects.create(name_cust="Michael Thompson", mail_cust="michael.thompson@example.com", password_cust="password5")
+customer6 = Customer.objects.create(name_cust="Sophia Anderson", mail_cust="sophia.anderson@example.com", password_cust="password6")
+customer7 = Customer.objects.create(name_cust="William Martinez", mail_cust="william.martinez@example.com", password_cust="password7")
+customer8 = Customer.objects.create(name_cust="Olivia Rodriguez", mail_cust="olivia.rodriguez@example.com", password_cust="password8")
+customer9 = Customer.objects.create(name_cust="James Garcia", mail_cust="james.garcia@example.com", password_cust="password9")
+customer10 = Customer.objects.create(name_cust="Ava Lopez", mail_cust="ava.lopez@example.com", password_cust="password10")
+customer11 = Customer.objects.create(name_cust="Benjamin Hernandez", mail_cust="benjamin.hernandez@example.com", password_cust="password11")
+customer12 = Customer.objects.create(name_cust="Mia Nelson", mail_cust="mia.nelson@example.com", password_cust="password12")
+customer13 = Customer.objects.create(name_cust="Liam Smithson", mail_cust="liam.smithson@example.com", password_cust="password13")
+customer14 = Customer.objects.create(name_cust="Isabella Brown", mail_cust="isabella.brown@example.com", password_cust="password14")
+customer15 = Customer.objects.create(name_cust="Ethan Davis", mail_cust="ethan.davis@example.com", password_cust="password15")
+customer16 = Customer.objects.create(name_cust="Charlotte Johnson", mail_cust="charlotte.johnson@example.com", password_cust="password16")
+customer17 = Customer.objects.create(name_cust="Noah Wilson", mail_cust="noah.wilson@example.com", password_cust="password17")
+customer18 = Customer.objects.create(name_cust="Amelia Thompson", mail_cust="amelia.thompson@example.com", password_cust="password18")
+customer19 = Customer.objects.create(name_cust="Alexander Anderson", mail_cust="alexander.anderson@example.com", password_cust="password19")
+customer20 = Customer.objects.create(name_cust="Sofia Martinez", mail_cust="sofia.martinez@example.com", password_cust="password20")
+
+
+from textlist.models import Note
+n1 = Note.objects.create(title_note="Проснутись та почитистити зуби", time_note="08:00:00", text_note="black", telegram_send=False, day_of_week=1)
+n2 = Note.objects.create(title_note="Зустріч з друзями", time_note="12:30:00", text_note="green", telegram_send=True, day_of_week=1)
+n3 = Note.objects.create(title_note="Пообідати в улюбленому ресторані", time_note="13:00:00", text_note="red", telegram_send=False, day_of_week=1)
+n4 = Note.objects.create(title_note="Тренування у фітнес-центрі", time_note="18:00:00", text_note="blue", telegram_send=True, day_of_week=1)
+n5 = Note.objects.create(title_note="Читання нової книги", time_note="20:00:00", text_note="yellow", telegram_send=False, day_of_week=1)
+n6 = Note.objects.create(title_note="Завершити проект", time_note="10:00:00", text_note="orange", telegram_send=True, day_of_week=2)
+n7 = Note.objects.create(title_note="Відвідати концерт", time_note="19:30:00", text_note="purple", telegram_send=False, day_of_week=2)
+n8 = Note.objects.create(title_note="Написати електронний лист", time_note="09:00:00", text_note="gray", telegram_send=True, day_of_week=3)
+n9 = Note.objects.create(title_note="Зустріч з клієнтом", time_note="14:00:00", text_note="brown", telegram_send=False, day_of_week=3)
+n10 = Note.objects.create(title_note="Подорож до моря", time_note="08:00:00", text_note="pink", telegram_send=True, day_of_week=4)
+n11 = Note.objects.create(title_note="Вечеря з родиною", time_note="19:00:00", text_note="teal", telegram_send=False, day_of_week=4)
+n12 = Note.objects.create(title_note="Конференція", time_note="11:30:00", text_note="cyan", telegram_send=True, day_of_week=5)
+n13 = Note.objects.create(title_note="Відпочинок на природі", time_note="10:00:00", text_note="maroon", telegram_send=False, day_of_week=6)
+n14 = Note.objects.create(title_note="Заняття йогою", time_note="17:30:00", text_note="navy", telegram_send=True, day_of_week=7)
+n15 = Note.objects.create(title_note="Подорож до музею", time_note="13:00:00", text_note="lime", telegram_send=False, day_of_week=7)
+n16 = Note.objects.create(title_note="Важлива зустріч", time_note="15:30:00", text_note="indigo", telegram_send=True, day_of_week=1)
+n17 = Note.objects.create(title_note="Планування відпустки", time_note="11:00:00", text_note="silver", telegram_send=False, day_of_week=2)
+n18 = Note.objects.create(title_note="Зустріч зі старим другом", time_note="16:30:00", text_note="gold", telegram_send=True, day_of_week=3)
+n19 = Note.objects.create(title_note="Творча сесія", time_note="14:00:00", text_note="violet", telegram_send=False, day_of_week=4)
+n20 = Note.objects.create(title_note="Релаксаційний масаж", time_note="10:30:00", text_note="magenta", telegram_send=True, day_of_week=5)
+
+
+
+cn1 = CustNote.objects.create(note=Note.objects.get(pk=6), cust_note=Customer.objects.get(pk=3))

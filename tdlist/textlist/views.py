@@ -2,6 +2,8 @@ from django.http import HttpResponse, HttpResponseNotFound, Http404
 from django.shortcuts import render, redirect
 from .models import *
 from datetime import datetime
+from .models import Customer
+
 
 
 menu = {
@@ -12,11 +14,11 @@ menu = {
     }
 
 def notes(request):
-    all_cust = Customer.objects.all()
+    # all_cust = Customer.objects.all()
     context = {
         'menu': menu, 
         'title': "Розпорядок дня", 
-        'all_customers': all_cust
+        # 'all_customers': all_cust,
     }
     return render(request, 'textlist/notes.html', context)
 
