@@ -1,9 +1,8 @@
-from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse
 from django.shortcuts import render, redirect
 from .models import *
 from datetime import datetime
-from .models import Customer
-
+from django.views.decorators.csrf import csrf_exempt
 
 
 menu = {
@@ -14,11 +13,16 @@ menu = {
     }
 
 def notes(request):
-    # all_cust = Customer.objects.all()
+    all_notes_id = CustNote.objects.filter(cust_note=3)
+    all_notes = Note.objects.filter(id__in=all_notes_id).order_by('time_note')
+    
+    print(all_notes)
+
     context = {
         'menu': menu, 
         'title': "Розпорядок дня", 
-        # 'all_customers': all_cust,
+        'all_cust_note': all_notes,
+        
     }
     return render(request, 'textlist/notes.html', context)
 
@@ -31,6 +35,17 @@ def auth(request):
 def regist(request):
     return render(request, 'textlist/reg.html', {'menu': menu})
 
+@csrf_exempt
+def delete_note(request, note_id):
+    # Виконайте логіку для видалення запису з бази даних за допомогою Django ORM
+    try:
+        note = Note.objects.get(pk=note_id)
+        note.delete()
+        return JsonResponse({}, status=204)
+    except Note.DoesNotExist:
+        return JsonResponse({'error': 'Запис не знайдено'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 # def categories(request, catid):
 #     if request.GET:

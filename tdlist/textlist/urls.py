@@ -6,7 +6,8 @@ urlpatterns = [
     path('notes', notes, name='notes'), #http://127.0.0.1:8000/
     path('about', about, name='about'),
     path('auth', auth, name="auth"),
-    path('reg', regist, name="reg")
+    path('reg', regist, name="reg"),
+    path('delete_note/<int:note_id>/', delete_note, name='delete_note'),
     # path('cats/<int:catid>/', categories),
     # re_path(r'^archive/(?P<year>[0-9]{4})/', archive)
 ]

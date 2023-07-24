@@ -261,56 +261,17 @@ a{
 	flex-direction: column;
 }
 
-.edit-button{
-	width: 30px;
-	height: 30px;
-	border: none;
-	background: url("../images/edit-tool1.png");	
-	background-size: cover;
-}
-
-.edit-button:hover{
-	width: 30px;
-	height: 30px;
-	border: none;
-	background-size: cover;
-	background: url("../images/edit-hover1.png");
-	filter: drop-shadow(5px 5px 0.3rem #c9d1c8);
-}
-
-.delete-button{
-	width: 30px;
-	height: 30px;
-	border: none;
-	background: url("../images/delete_button_hover.png");	
-	background-size: cover;
-}
-
-.delete-button:hover{
-	width: 30px;
-	height: 30px;
-	border: none;
-	background-size: cover;
-	background: url("../images/delete_button.png");
-	filter: drop-shadow(5px 5px 0.3rem #c9d1c8);
-}
-
 .telegram-button{
 	width: 30px;
 	height: 30px;
-	border: none;
 	background-size: cover;
-	background: url("../images/telegram-hover.png");
-	
 }
 
 .telegram-button:hover{
-	width: 30px;
-	height: 30px;
 	border: none;
 	background-size: cover;
-	background: url("../images/telegram.png");
-	filter: drop-shadow(5px 5px 0.3rem #c9d1c8);
+	filter: drop-shadow(2px 2px 2px#c9d1c8);
+	transition: 0.2s;
 }
 
 .vertical-block-todo:hover{
@@ -319,8 +280,9 @@ a{
 }
 
 .refactor-buttons{
-	margin: 10px;
+	margin: 0px;
 	cursor: pointer;
+	background-color: transparent;
 }
 
 .right-side-button{	

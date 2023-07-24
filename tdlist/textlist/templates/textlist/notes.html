@@ -22,108 +22,46 @@
         </ul>
     </div>
 
-    <!-- <div class="vertical-block">
-        <ul class="listdo">
-            <a href="#">
-                <li class="dolist-element">
-                    <b>9:30</b>
-                </li>
-            </a>
-            <a href="#">
-                <li class="dolist-element">
-                    <b>10:30</b>
-                </li>
-            </a>
-            <a href="#">
-                <li class="dolist-element">
-                    <b>11:30</b>
-                </li>
-            </a>
-            <a href="#">
-                <li class="dolist-element">
-                    <b>12:30</b>
-                </li>
-            </a>
-            <a href="#">
-                <li class="dolist-element">
-                    <b>13:30</b>
-                </li>
-            </a>
-            <a href="#">
-                <li class="dolist-element">
-                    <b>14:30</b>
-                </li>
-            </a>
-            <a href="#">
-                <li class="dolist-element">
-                    <b>+</b>
-                </li>
-            </a>
-        </ul>
-    </div> -->
-
     <div class="container-vertical">
 
         <button class="vertical-block-todo plus">
             <img src="../static/textlist/images/plus.svg" class="plus1">
         </button>
-<!-- 
-        <div class="vertical-block-todo">
-            <div class="right-side-button">
-                <input type="time" id="time" name="time" class="title-time" />
-                <div>
-                    <button class="refactor-buttons telegram-button"></button>
-                    <button class="refactor-buttons delete-button"></button>
-                    <button class="refactor-buttons edit-button"></button>
-                </div>
-            </div>
-            <div class="line-from-todo-det"></div>
-            <textarea maxlength="175" wrap="soft" class="title-text" style="min-width: fit-content;" oninput="autoResize()">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis quod, doloribus dolore est perferendis nobis laborum animi, ex harum, corporis impedit. Delectus corrupti repellat hic mollitia natus perferendis neque molestiae!</textarea>
-            <div class="line-from-todo-det-under-title"></div>
-            <p class="todotext">
-                fsdfsfdsdfsdf
-            </p>
-        </div> -->
-        
-        <div class="vertical-block-todo">
-            <div class="right-side-button">
-                <p class="title-time"><b>- 8:30</b></p>
-                <div>
-                    <button class="refactor-buttons telegram-button"></button>
-                    <button class="refactor-buttons delete-button"></button>
-                    <button class="refactor-buttons edit-button"></button>
-                </div>
-            </div>
-            <div class="line-from-todo-det"></div>
-            <div class="title-text" contenteditable="true" id="title_text">Lorem ipsum dolor sit amefgsfsfsdfsdfsdfsdfsdfst, consectetur adipisicing elit.
-                Aperiam animi dolores sunt.
-            </div>
-            <div class="line-from-todo-det-under-title"></div>
-            <p class="todotext">
-            </p>
-        </div>
 
-
-        <!-- <div class="vertical-block-todo">
-            <div class="right-side-button">
-                <p class="title-time"><b>- 8:30</b></p>
-                <div>
-                    <button class="refactor-buttons telegram-button"></button>
-                    <button class="refactor-buttons delete-button"></button>
-                    <button class="refactor-buttons edit-button"></button>
+        {% for note in all_cust_note %}
+            {% if note.day_of_week == 3 %}          <!--День тижня-->
+            <div class="vertical-block-todo">
+                <div class="right-side-button">
+                    <input type="time" id="time" name="time" class="title-time" value="{{ note.time_note }}"
+                        pattern="[0-2][0-9]:[0-5][0-9]" />
+                    <div>
+                        <button class="refactor-buttons" id="t_{{note.pk}}"><img
+                                src="../../static/textlist/images/telegram.png" class="telegram-button"></button>
+                        <button class="refactor-buttons" id="d_{{note.pk}}"><img
+                                src="../../static/textlist/images/delete_button.svg" class="telegram-button" onclick="deleteNote('{{note.pk}}')"></button>
+                        <button class="refactor-buttons" id="e_{{note.pk}}" onclick="toggleContentEditable('{{note.pk}}')"><img
+                                src="../../static/textlist/images/editing.svg" class="telegram-button"></button>
+                    </div>
                 </div>
+                <div class="line-from-todo-det"></div>
+                <div class="title-text" contenteditable="false" id="title_text_{{note.pk}}">{{note.title_note}}</div>
+                <div class="line-from-todo-det-under-title"></div>
+                <p class="todotext">
+                </p>
             </div>
-            <div class="line-from-todo-det"></div>
-            <p class="title-text">Lorem ipsum dolor sit amefgsfsfsdfsdfsdfsdfsdfst, consectetur adipisicing elit.
-                Aperiam animi dolores sunt.
-            </p>
-            <div class="line-from-todo-det-under-title"></div>
-            <p class="todotext">
+            {% endif %}
+        {% endfor %}
 
-            </p>
-        </div> -->
 
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
 
+
+
+
+
+
+</script>
 {% endblock %}
