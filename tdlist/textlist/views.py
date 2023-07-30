@@ -1,6 +1,8 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from .models import *
+from .forms import *
 from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
 
@@ -12,6 +14,23 @@ menu = {
     "Увійти": "auth"
     }
 
+def index(request):
+    
+    context = {
+        'menu': menu
+    }
+    
+    return render(request, 'textlist/index.html', context)
+
+def get(request):
+    if request.user.is_authenticated:
+        customers = Customer.objects.all()
+        ctx = {}
+        ctx['customers'] = customers
+        return render(request, "", ctx)
+    else:
+        return render(request, "", {})
+        
 def notes(request):
     all_notes_id = CustNote.objects.filter(cust_note=3)
     all_notes = Note.objects.filter(id__in=all_notes_id).order_by('time_note')
@@ -22,18 +41,48 @@ def notes(request):
         'menu': menu, 
         'title': "Розпорядок дня", 
         'all_cust_note': all_notes,
-        
     }
+    
     return render(request, 'textlist/notes.html', context)
 
+# def show_note(request, note_slug):
+#     # note = get_object_or_404(Note, slug=note_slug)
+    
+#     context = {
+#         # 'note': note,
+#         'menu': menu, 
+#         'title': "О сайте"
+#     }
+#     return render(request, 'textlist/show_note.html', context)
+
 def about(request):
-    return render(request, 'textlist/about.html', {'menu': menu, 'title': "О сайте"})
+    
+    context = {
+        'menu': menu, 
+        'title': "О сайте"
+    }
+    return render(request, 'textlist/about.html', context)
 
 def auth(request):
     return render(request, 'textlist/auth.html', {'menu': menu})
 
 def regist(request):
-    return render(request, 'textlist/reg.html', {'menu': menu})
+    error = 'Иди нахуй'
+    if request.method == 'POST':
+        form = AddCustomer(request.POST)
+        if form.is_valid():
+            form.save()
+        else:
+            error='Иди нахуй'
+        
+    form = AddCustomer()
+    context = {
+        'menu':menu,
+        'form':form,
+        'error': error
+    }
+    
+    return render(request, 'textlist/reg.html', context)
 
 @csrf_exempt
 def delete_note(request, note_id):

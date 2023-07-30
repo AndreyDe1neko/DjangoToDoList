@@ -1,4 +1,5 @@
 {% extends 'textlist/base.html' %}
+{% load static %}
 
 {% block content %}
 <!-- <h1>{{title}}</h1>
@@ -8,7 +9,6 @@
     <h3>{{item.password_cust}}</h3>
 {% endfor %} -->
 <div class="main-container">
-    <!-- Горизонтальное меню -->
 
     <div class="days-of-week">
         <ul class="listdo">
@@ -25,22 +25,22 @@
     <div class="container-vertical">
 
         <button class="vertical-block-todo plus">
-            <img src="../static/textlist/images/plus.svg" class="plus1">
+            <img src="{% static 'textlist/images/plus.svg' %}" class="plus1">
         </button>
-
+        
         {% for note in all_cust_note %}
-            {% if note.day_of_week == 3 %}          <!--День тижня-->
+            {% if note.day_of_week == 4 %}          <!--День тижня-->
             <div class="vertical-block-todo">
                 <div class="right-side-button">
                     <input type="time" id="time" name="time" class="title-time" value="{{ note.time_note }}"
                         pattern="[0-2][0-9]:[0-5][0-9]" />
                     <div>
                         <button class="refactor-buttons" id="t_{{note.pk}}"><img
-                                src="../../static/textlist/images/telegram.png" class="telegram-button"></button>
+                                src="{% static 'textlist/images/telegram.png' %}" class="telegram-button"></button>
                         <button class="refactor-buttons" id="d_{{note.pk}}"><img
-                                src="../../static/textlist/images/delete_button.svg" class="telegram-button" onclick="deleteNote('{{note.pk}}')"></button>
-                        <button class="refactor-buttons" id="e_{{note.pk}}" onclick="toggleContentEditable('{{note.pk}}')"><img
-                                src="../../static/textlist/images/editing.svg" class="telegram-button"></button>
+                                src="{% static 'textlist/images/delete_button.svg' %}" class="telegram-button" onclick="deleteNote('{{note.pk}}')"></button>
+                        <button class="refactor-buttons" id="e_{{note.pk}}" onclick="toggleContentEditable('{{note.pk}}')">
+                            <img src="{% static 'textlist/images/editing.svg' %}" class="telegram-button"></button>
                     </div>
                 </div>
                 <div class="line-from-todo-det"></div>
@@ -58,10 +58,31 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
-
-
-
-
+    function toggleContentEditable(noteId) {
+        var titleTextElement = document.getElementById("title_text_" + noteId);
+        var editButton = document.getElementById("e_" + noteId).querySelector("img");
+    
+        console.log(editButton)
+        if (titleTextElement.contentEditable === "true") {
+            titleTextElement.contentEditable = "false";
+            // Змінити зображення, коли режим редагування вимкнено
+            editButton.src = "../static/textlist/images/editing.svg";
+        } else {
+            titleTextElement.contentEditable = "true";
+            // Змінити зображення, коли режим редагування увімкнено
+            editButton.src = "../static/textlist/images/save.svg";
+            
+        }
+    }
+    
+    
+    function deleteNote(noteId) {
+        var elementToDelete = document.getElementById("d_" + noteId).closest('.vertical-block-todo');
+        
+        $(elementToDelete).animate({ left: "-1000px", opacity: 0}, 600, function() {
+            elementToDelete.remove();
+        }); 
+    }
 
 </script>
 {% endblock %}

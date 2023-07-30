@@ -87,6 +87,7 @@ input{
   }
 }
 
+
 body{
 	background: url("../images/forest.jpg") no-repeat;
 	background-position: center;
@@ -101,6 +102,11 @@ body{
 
 a{
 	text-decoration: none;
+	color: #c9d1d8;
+}
+
+a:hover{
+	color:#5B7065;
 }
 
 .liitem {
@@ -531,4 +537,8 @@ a{
 	.dolist-element{
 		margin: 0px 1px 10px 1px;
 	}
+}
+
+button.refactor-buttons img {
+    transition: all 1s ease; /* Плавна зміна зображення тривалістю 0.3 секунди */
 }
