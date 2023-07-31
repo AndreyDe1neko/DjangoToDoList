@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-
+    {{ request.user.is_authenticated }}
     {% if user.is_authenticated %}
         <h1><a href="/">Вийти</h1>
     {% else %}        

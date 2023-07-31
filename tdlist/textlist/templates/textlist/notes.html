@@ -2,12 +2,7 @@
 {% load static %}
 
 {% block content %}
-<!-- <h1>{{title}}</h1>
-<p>Содержимое главной страницы</p>
-{% for item in all_customers %}
-    <h2>{{item.name_cust}}</li></h2>
-    <h3>{{item.password_cust}}</h3>
-{% endfor %} -->
+
 <div class="main-container">
 
     <div class="days-of-week">
@@ -29,7 +24,7 @@
         </button>
         
         {% for note in all_cust_note %}
-            {% if note.day_of_week == 4 %}          <!--День тижня-->
+            {% if note.day_of_week == 3 %}          <!--День тижня-->
             <div class="vertical-block-todo">
                 <div class="right-side-button">
                     <input type="time" id="time" name="time" class="title-time" value="{{ note.time_note }}"
@@ -61,7 +56,7 @@
     function toggleContentEditable(noteId) {
         var titleTextElement = document.getElementById("title_text_" + noteId);
         var editButton = document.getElementById("e_" + noteId).querySelector("img");
-    
+
         console.log(editButton)
         if (titleTextElement.contentEditable === "true") {
             titleTextElement.contentEditable = "false";
@@ -71,17 +66,17 @@
             titleTextElement.contentEditable = "true";
             // Змінити зображення, коли режим редагування увімкнено
             editButton.src = "../static/textlist/images/save.svg";
-            
+
         }
     }
-    
-    
+
+
     function deleteNote(noteId) {
         var elementToDelete = document.getElementById("d_" + noteId).closest('.vertical-block-todo');
-        
+
         $(elementToDelete).animate({ left: "-1000px", opacity: 0}, 600, function() {
             elementToDelete.remove();
-        }); 
+        });
     }
 
 </script>

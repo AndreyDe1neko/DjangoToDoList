@@ -9,26 +9,26 @@
             <h2 class="nonactive" style="font-size: 14px;"><a href="{% url 'auth' %}"> Вхід <a></h2>
             <div class="line-from-todo-det"></div>
             <h2 class="active" style="text-align: center;"> Реєстрація </h2>
-            <form action="" method="post">{% csrf_token %}
-                <div>
-                
-                <span class="text-log">ім'я користувача</span>
-                <br>{{ form.name_cust }}<br> 
-                
-                <span class="text-log">Пошта</span>
-                <br>{{ form.mail_cust }}<br>
-                
-                <span class="text-log">Пароль</span>
-                <br>{{ form.password_cust }}<br>
 
-                <span class="text-log">Підтвердити пароль</span>
-                <br>
-                
-                <input type="password" class="textbox-auth" name="password-ref" placeholder="*********">
+            <form action="" method="post">{% csrf_token %}
+                <div class = "textbox-auth text-log">
+                <span>ім'я користувача</span>
+                <br>{{ form.username }}<br>
+
+                <span>Пошта</span>
+                <br>{{ form.email }}<br>
+
+                <span>Пароль</span>
+                <br>{{ form.password1 }}<br>
+
+                <span>Підтвердити пароль</span>
+                <br>{{ form.password2 }}<br>
+
                 <div style="display: flex; justify-content: center;">
                 <button class="signin" type="submit">
                     Реєстрація
                 </button>
+                </div>
                 </div>
             </form>
         </div>

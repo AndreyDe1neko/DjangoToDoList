@@ -1,33 +1,30 @@
 from django import forms
+from django.contrib.auth.forms import User
+from django.contrib.auth.forms import UserCreationForm
 from .models import *
 
-class addnoteform(forms.Form):
-    title_note = forms.CharField(max_length=255)
-    time_note = models.TimeField()
-    text_note = forms.CharField(max_length=255)
-    telegram_send = models.BooleanField()
-    day_of_week = models.SmallIntegerField()
-    
-class AddCustomer(forms.ModelForm):
+# Create your forms here.
+
+class NewUserForm(UserCreationForm):
+    password1 = forms.CharField(max_length=16, widget=forms.PasswordInput(
+        attrs={
+            'placeholder': '********'
+        }))
+    password2 = forms.CharField(max_length=16, widget=forms.PasswordInput(
+        attrs={
+            'placeholder': '********'
+        }))
     class Meta:
-        model = Customer
-        fields = ['name_cust', 'mail_cust', 'password_cust']
-        
+        model = User
+        fields = ("username", "email", "password1", "password2")
         widgets = {
-            "name_cust": forms.TextInput(attrs={
-                'class': 'textbox-auth',
-                'placeholder': "Kurobyro",
-                'type':"username"
+            'username': forms.TextInput(attrs={
+                'placeholder': 'Kurobyro',
+                'type': 'username'
             }),
-            "mail_cust": forms.TextInput(attrs={
-                'class': 'textbox-auth',
+            'email': forms.TextInput(attrs={
                 'type': 'email',
-                'name': 'username',
+                'name': 'email',
                 'placeholder': "Hitler@jew.hot"
-            }),
-            "password_cust": forms.TextInput(attrs={
-                'class': 'textbox-auth', 
-                'placeholder': '*********',
-                'type': 'password'
             })
         }

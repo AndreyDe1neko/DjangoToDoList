@@ -1,6 +1,8 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
+from django.contrib.auth import authenticate, login
+from django.contrib import messages
 from .models import *
 from .forms import *
 from datetime import datetime
@@ -22,15 +24,6 @@ def index(request):
     
     return render(request, 'textlist/index.html', context)
 
-def get(request):
-    if request.user.is_authenticated:
-        customers = Customer.objects.all()
-        ctx = {}
-        ctx['customers'] = customers
-        return render(request, "", ctx)
-    else:
-        return render(request, "", {})
-        
 def notes(request):
     all_notes_id = CustNote.objects.filter(cust_note=3)
     all_notes = Note.objects.filter(id__in=all_notes_id).order_by('time_note')
@@ -64,22 +57,29 @@ def about(request):
     return render(request, 'textlist/about.html', context)
 
 def auth(request):
-    return render(request, 'textlist/auth.html', {'menu': menu})
-
-def regist(request):
-    error = 'Иди нахуй'
-    if request.method == 'POST':
-        form = AddCustomer(request.POST)
-        if form.is_valid():
-            form.save()
-        else:
-            error='Иди нахуй'
-        
-    form = AddCustomer()
+    
     context = {
         'menu':menu,
-        'form':form,
-        'error': error
+        
+    }
+    return render(request, 'textlist/auth.html', context)
+
+def regist(request):
+    if request.method == "POST":
+        form = NewUserForm(request.POST)
+        print(form.is_valid())
+        print(form.cleaned_data)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            messages.success(request, "Registration successful.")
+            return redirect('notes')
+        messages.error(request, "Невдала реєстрація. Перевірте правильність введеної інформації.")
+    form = NewUserForm()
+    
+    context = {
+        'menu':menu,
+        'form':form
     }
     
     return render(request, 'textlist/reg.html', context)
