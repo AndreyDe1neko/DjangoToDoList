@@ -7,6 +7,7 @@ urlpatterns = [
     path('auth', auth, name="auth"),
     path('reg', regist, name="reg"),
     path('', index, name='main'),
+    path('logout', logout_view, name='logout'),
     path('delete_note/<int:note_id>/', delete_note, name='delete_note'),
     # path('cats/<int:catid>/', categories),
     # re_path(r'^archive/(?P<year>[0-9]{4})/', archive)

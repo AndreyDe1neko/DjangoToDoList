@@ -1,7 +1,7 @@
 from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .models import *
 from .forms import *
@@ -9,38 +9,30 @@ from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
 
 
-menu = {
-    "Про сайт": "#", 
-    "Мої нотатки": "notes", 
-    "Зворотній зв'язок": "#", 
-    "Увійти": "auth"
+def index(request):
+    context = {
     }
 
-def index(request):
-    
-    context = {
-        'menu': menu
-    }
-    
     return render(request, 'textlist/index.html', context)
+
 
 def notes(request):
     all_notes_id = CustNote.objects.filter(cust_note=3)
     all_notes = Note.objects.filter(id__in=all_notes_id).order_by('time_note')
-    
+
     print(all_notes)
 
     context = {
-        'menu': menu, 
-        'title': "Розпорядок дня", 
+        'title': "Розпорядок дня",
         'all_cust_note': all_notes,
     }
-    
+
     return render(request, 'textlist/notes.html', context)
+
 
 # def show_note(request, note_slug):
 #     # note = get_object_or_404(Note, slug=note_slug)
-    
+
 #     context = {
 #         # 'note': note,
 #         'menu': menu, 
@@ -49,20 +41,18 @@ def notes(request):
 #     return render(request, 'textlist/show_note.html', context)
 
 def about(request):
-    
     context = {
-        'menu': menu, 
         'title': "О сайте"
     }
     return render(request, 'textlist/about.html', context)
 
+
 def auth(request):
-    
     context = {
-        'menu':menu,
-        
+
     }
     return render(request, 'textlist/auth.html', context)
+
 
 def regist(request):
     if request.method == "POST":
@@ -76,17 +66,21 @@ def regist(request):
             return redirect('notes')
         messages.error(request, "Невдала реєстрація. Перевірте правильність введеної інформації.")
     form = NewUserForm()
-    
+
     context = {
-        'menu':menu,
-        'form':form
+        'form': form
     }
-    
+
     return render(request, 'textlist/reg.html', context)
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('auth')
+
 
 @csrf_exempt
 def delete_note(request, note_id):
-    # Виконайте логіку для видалення запису з бази даних за допомогою Django ORM
     try:
         note = Note.objects.get(pk=note_id)
         note.delete()
@@ -110,4 +104,3 @@ def delete_note(request, note_id):
 
 # def pageNotFound(request, exception):
 #     return HttpResponseNotFound("<h1>Страница не найдена</h1>")
-

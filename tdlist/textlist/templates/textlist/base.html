@@ -7,43 +7,64 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ title }}</title>
-    <link type="text/css" href="{% static 'textlist/css/styles.css' %}" rel="stylesheet" />
+    <link type="text/css" href="{% static 'textlist/css/styles.css' %}" rel="stylesheet"/>
     <link rel="icon" type="image/x-icon" href="{% static 'textlist/images/list_clipboard.svg' %}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 </head>
 
 <body>
-    <!-- {% getnote as notes_all%}
-    {% for i in notes_all %}
-    <h1>{{i}}</h1>
-    {% endfor %} -->
+{#    <!-- {% getnote as notes_all%}#}
+{#    {% for i in notes_all %}#}
+{#    <h1>{{i}}</h1>#}
+{#    {% endfor %} -->#}
+{##}
+{#        <!-- Вертикальное меню -->#}
+{##}
+{##}
+{#    <!-- {% show_notes_by_days %} -->#}
 
-        <!-- Вертикальное меню -->
 
-
-    <!-- {% show_notes_by_days %} -->
-
-    
-    <nav class="navbar bga">
-        {% block mainmenu %}
+<nav class="navbar bga">
+    {% block mainmenu %}
         <ul class="mainmenu-ul">
-            {% for m, link in menu.items %}
             <li class="nav-item">
-                <a class="nav-link" href="{{link}}">
-                    <div class="liitem">{{m}}</div>
+                <a class="nav-link" href="/">
+                    <div class="liitem">Про сайт</div>
                 </a>
             </li>
-            {% endfor %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'notes' %}">
+                    <div class="liitem">Мої нотатки</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    <div class="liitem">Зворотній зв'язок</div>
+                </a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">
+                        <div class="liitem">Вийти</div>
+                    </a>
+                </li>
+            {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'auth' %}">
+                        <div class="liitem">Увійти</div>
+                    </a>
+                </li>
+            {% endif %}
         </ul>
-        {% endblock mainmenu %}
-    </nav>
+    {% endblock mainmenu %}
+</nav>
 
-    
-    {% block content %}
 
-    {% endblock %}
-    <script src="{% static 'textlist/js/scripts.js' %}"></script>
+{% block content %}
+
+{% endblock %}
+<script src="{% static 'textlist/js/scripts.js' %}"></script>
 </body>
 
 </html>
