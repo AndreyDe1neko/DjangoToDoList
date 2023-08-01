@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import *
 
 # Create your forms here.
@@ -27,4 +27,21 @@ class NewUserForm(UserCreationForm):
                 'name': 'email',
                 'placeholder': "Hitler@jew.hot"
             })
+        }
+
+
+class LoginForm(AuthenticationForm):
+    password = forms.CharField(max_length=16, widget=forms.PasswordInput(
+        attrs={
+            'class': 'textbox-auth',
+            'placeholder': '********'
+        }))
+    class Meta:
+        model = User
+        fields = ("username", "password")
+        widgets = {'username': forms.TextInput(attrs={
+                    'class': 'textbox-auth',
+                    'placeholder': 'Kurobyro',
+                    'type': 'username'
+                })
         }

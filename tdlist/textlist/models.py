@@ -2,7 +2,6 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
 
-
 # Create your models here.
 
 class Note(models.Model):
@@ -19,11 +18,13 @@ class Note(models.Model):
     #     return reverse('note', kwargs={'note_slug': self.slug})
 
     class Meta:
-        verbose_name = "Нотатка"
+        verbose_name="Нотатка"
         verbose_name_plural = "Нотатки"
         ordering = ["title_note", "time_note"]
-
 
 class CustNote(models.Model):
     note = models.ForeignKey('Note', on_delete=models.PROTECT, unique=True)
     cust_note = models.ForeignKey(User, on_delete=models.PROTECT)
+
+
+

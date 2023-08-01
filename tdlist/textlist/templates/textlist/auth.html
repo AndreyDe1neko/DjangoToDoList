@@ -13,15 +13,15 @@
             <h2 class="active" style="text-align: center;"> Вхід </h2>
             <form action="" method="post">{% csrf_token %}
                 <div class = "textbox-auth text-log">
-                <span>Пошта</span>
+                <span>ім'я користувача</span>
                 <br>
-                <input type="username" class="textbox-auth" name="username" placeholder="Hitler">
+                {{ form.username }}
                 
                 <br>
                 <span>Пароль</span>
 
                 <br>
-                <input type="password" class="textbox-auth" name="password" placeholder="JewsBest">
+                {{ form.password }}
                 
                 <br>
                 <div style="display: flex; justify-content: center;">

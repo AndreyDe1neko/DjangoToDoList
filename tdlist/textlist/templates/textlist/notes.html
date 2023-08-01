@@ -24,7 +24,7 @@
         </button>
         
         {% for note in all_cust_note %}
-            {% if note.day_of_week == 3 %}          <!--День тижня-->
+            {% if note.day_of_week == week_day %}          <!--День тижня-->
             <div class="vertical-block-todo">
                 <div class="right-side-button">
                     <input type="time" id="time" name="time" class="title-time" value="{{ note.time_note }}"

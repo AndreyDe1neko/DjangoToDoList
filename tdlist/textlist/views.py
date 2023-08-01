@@ -16,17 +16,18 @@ def index(request):
     return render(request, 'textlist/index.html', context)
 
 
-def notes(request):
-    all_notes_id = CustNote.objects.filter(cust_note=3)
-    all_notes = Note.objects.filter(id__in=all_notes_id).order_by('time_note')
-
-    print(all_notes)
-
-    context = {
-        'title': "Розпорядок дня",
-        'all_cust_note': all_notes,
-    }
-
+def notes(request, now_day_on_week=datetime.isoweekday(datetime.now())):
+    if request.user.is_authenticated:
+        current_user = request.user
+        all_notes_id = CustNote.objects.filter(cust_note=current_user.id)
+        all_notes = Note.objects.filter(id__in=all_notes_id).order_by('time_note')
+        context = {
+            'title': "Розпорядок дня",
+            'all_cust_note': all_notes,
+            'week_day': now_day_on_week
+        }
+    else:
+        return redirect('auth')
     return render(request, 'textlist/notes.html', context)
 
 
@@ -48,8 +49,22 @@ def about(request):
 
 
 def auth(request):
+    if request.method == "POST":
+        form = LoginForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('notes')
+            else:
+                messages.error(request, "Неправильне ім'я користувача або пароль.")
+        else:
+            messages.error(request, "Неправильне ім'я користувача або пароль.")
+    form = LoginForm()
     context = {
-
+        'form': form
     }
     return render(request, 'textlist/auth.html', context)
 
