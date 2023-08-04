@@ -74,13 +74,11 @@ def auth(request):
 def regist(request):
     if request.method == "POST":
         form = NewUserForm(request.POST)
-        print(form.is_valid())
-        print(form.cleaned_data)
         if form.is_valid():
             user = form.save()
             login(request, user)
             messages.success(request, "Registration successful.")
-            return redirect('notes')
+            return redirect('notes/1/')
         messages.error(request, "Невдала реєстрація. Перевірте правильність введеної інформації.")
     form = NewUserForm()
 
@@ -96,19 +94,27 @@ def logout_view(request):
     return redirect('auth')
 
 # @requaire_POST
+
 def create_note(request):
      pass
 
-@csrf_exempt
-def delete_note(request, note_id):
-    try:
-        note = Note.objects.get(pk=note_id)
-        note.delete()
-        return JsonResponse({}, status=204)
-    except Note.DoesNotExist:
-        return JsonResponse({'error': 'Запис не знайдено'}, status=404)
-    except Exception as e:
-        return JsonResponse({'error': str(e)}, status=500)
+
+def delete_note(request, delete_note_id):
+
+    current_user = request.user
+    all_user_notes_id = CustNote.objects.filter(cust_note=current_user.id)
+    all_notes_id = [i.note_id for i in all_user_notes_id]
+    if delete_note_id in all_notes_id:
+        try:
+            note = Note.objects.get(pk=delete_note_id)
+            note.delete()
+            return JsonResponse({}, status=204)
+        except Note.DoesNotExist:
+            return JsonResponse({'error': 'Запис не знайдено'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': str(e)}, status=500)
+    else:
+        print("suck dick")
 
 # def categories(request, catid):
 #     if request.GET:

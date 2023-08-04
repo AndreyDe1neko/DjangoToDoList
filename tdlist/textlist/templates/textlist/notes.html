@@ -30,9 +30,9 @@
                         pattern="[0-2][0-9]:[0-5][0-9]" />
                     <div>
                         <button class="refactor-buttons" id="t_{{note.pk}}"><img
-                                src="{% static 'textlist/images/telegram.svg' %}" class="telegram-button"></button>
-                        <button class="refactor-buttons" id="d_{{note.pk}}"><img
-                                src="{% static 'textlist/images/delete_button.svg' %}" class="telegram-button" onclick="deleteNote('{{note.pk}}')"></button>
+                                src="{% static 'textlist/images/telegram.svg' %}" class="telegram-button"></button> </a>
+                        <a href="http://127.0.0.1:8000/delete_note/{{ note.pk }}"><button class="refactor-buttons" id="d_{{note.pk}}"><img
+                                src="{% static 'textlist/images/delete_button.svg' %}" class="telegram-button" onclick="deleteNote('{{note.pk}}')"></button></a>
                         <button class="refactor-buttons" id="e_{{note.pk}}" onclick="toggleContentEditable('{{note.pk}}')">
                             <img src="{% static 'textlist/images/editing.svg' %}" class="telegram-button"></button>
                     </div>

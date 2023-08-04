@@ -23,7 +23,7 @@ class Note(models.Model):
         ordering = ["title_note", "time_note"]
 
 class CustNote(models.Model):
-    note = models.ForeignKey('Note', on_delete=models.PROTECT, unique=True)
+    note = models.ForeignKey('Note', on_delete=models.CASCADE, unique=True)
     cust_note = models.ForeignKey(User, on_delete=models.PROTECT)
 
 
