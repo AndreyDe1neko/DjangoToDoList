@@ -163,7 +163,7 @@ a:hover{
 	background-color: rgba(0, 0, 0, 0.3);
 	backdrop-filter: blur(10px);
 	border-radius: 20px;
-	margin: 0px 0px 5px 15px;
+
 	font-size: 20px;
 	font-style: bold;
 	text-align: center;
@@ -184,12 +184,13 @@ a:hover{
 	height: 100%;
 	top: 0px;
 	position: sticky;
+	margin: 0px 10px;
 }
 
 .main-container{
 	display: flex;
 	margin-top: 20px;
-	padding: 0px 10% 0px 10%;
+	padding: 0px 20% 0px 20%;
 }
   
 .vertical-block-todo {
@@ -200,9 +201,17 @@ a:hover{
 	border-bottom: solid 1px rgb(112, 112, 112);
 	border-radius: 30px;
 	padding: 20px;
-	margin: 0px 10px 10px 10px;
-	transition: 0.5s;
-	width: 100%;
+	margin-bottom: 10px;
+}
+
+.vertical-block1{
+	width: 90%;
+	background-color: rgba(0, 0, 0, 0.3);
+	backdrop-filter: blur(10px);
+	border-bottom: solid 1px rgb(112, 112, 112);
+	border-radius: 30px;
+	height: 70%;
+	padding: 10px;
 }
 
 .plus{
@@ -211,6 +220,7 @@ a:hover{
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	width: 100%;
 }
 
 .title-text{
@@ -232,7 +242,6 @@ a:hover{
 .title-time{
 	color: #c9d1d8;
 	font-size: 30px;
-	margin: 10px 0px;
 }
 
 .line-from-todo-det{
@@ -260,6 +269,8 @@ a:hover{
 	background-color: rgba(255, 255, 255, 0.1);
 	backdrop-filter: blur(10px);
 	cursor: pointer;
+	margin-bottom: 10px;
+
 }
 
 .container-vertical{
@@ -407,6 +418,11 @@ a:hover{
 
 
 @media (max-width: 750px){
+
+	.vertical-block1{
+		padding: 10px;
+	}
+
 	.title-text{
 		color: #c9d1d8;
 		font-size: 15px;
@@ -503,7 +519,7 @@ a:hover{
 	.delete-button{
 		width: 20px;
 		height: 20px;
-		margin: 3px;
+
 	}
 	
 	.delete-button:hover{
@@ -515,13 +531,11 @@ a:hover{
 	.telegram-button{
 		width: 20px;
 		height: 20px;
-		margin: 3px;
 	}
 
 	.telegram-button:hover{
 		width: 20px;
 		height: 20px;
-		margin: 3px;
 	}
 
 	.right-side-button{	

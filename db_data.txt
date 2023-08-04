@@ -1,29 +1,6 @@
 
 Для таблицы User:
-from textlist.models import User
-User1 = User.objects.create(username="John Smith", email="john.smith@example.com", password="password1")
-User2 = User.objects.create(username="Alice Johnson", email="alice.johnson@example.com", password="password2")
-User3 = User.objects.create(username="Bob Davis", email="bob.davis@example.com", password="password3")
-User4 = User.objects.create(username="Emma Wilson", email="emma.wilson@example.com", password="password4")
-User5 = User.objects.create(username="Michael Thompson", email="michael.thompson@example.com", password="password5")
-User6 = User.objects.create(username="Sophia Anderson", email="sophia.anderson@example.com", password="password6")
-User7 = User.objects.create(username="William Martinez", email="william.martinez@example.com", password="password7")
-User8 = User.objects.create(username="Olivia Rodriguez", email="olivia.rodriguez@example.com", password="password8")
-User9 = User.objects.create(username="James Garcia", email="james.garcia@example.com", password="password9")
-User10 = User.objects.create(username="Ava Lopez", email="ava.lopez@example.com", password="password10")
-User11 = User.objects.create(username="Benjamin Hernandez", email="benjamin.hernandez@example.com", password="password11")
-User12 = User.objects.create(username="Mia Nelson", email="mia.nelson@example.com", password="password12")
-User13 = User.objects.create(username="Liam Smithson", email="liam.smithson@example.com", password="password13")
-User14 = User.objects.create(username="Isabella Brown", email="isabella.brown@example.com", password="password14")
-User15 = User.objects.create(username="Ethan Davis", email="ethan.davis@example.com", password="password15")
-User16 = User.objects.create(username="Charlotte Johnson", email="charlotte.johnson@example.com", password="password16")
-User17 = User.objects.create(username="Noah Wilson", email="noah.wilson@example.com", password="password17")
-User18 = User.objects.create(username="Amelia Thompson", email="amelia.thompson@example.com", password="password18")
-User19 = User.objects.create(username="Alexander Anderson", email="alexander.anderson@example.com", password="password19")
-User20 = User.objects.create(username="Sofia Martinez", email="sofia.martinez@example.com", password="password20")
-
-
-from textlist.models import Note
+from textlist.models import *
 n1 = Note.objects.create(title_note="Проснутись та почитистити зуби", time_note="08:00:00", text_note="black", telegram_send=False, day_of_week=1)
 n2 = Note.objects.create(title_note="Зустріч з друзями", time_note="12:30:00", text_note="green", telegram_send=True, day_of_week=1)
 n3 = Note.objects.create(title_note="Пообідати в улюбленому ресторані", time_note="13:00:00", text_note="red", telegram_send=False, day_of_week=1)
@@ -46,8 +23,11 @@ n19 = Note.objects.create(title_note="Творча сесія", time_note="14:00
 n20 = Note.objects.create(title_note="Релаксаційний масаж", time_note="10:30:00", text_note="magenta", telegram_send=True, day_of_week=5)
 
 
-from textlist.models import CustNote
-CustNote.objects.create(note=Note.objects.get(pk=6), cust_note=User.objects.get(pk=3))
+CustNote.objects.create(note=Note.objects.get(pk=1), cust_note=User.objects.get(pk=3))
+CustNote.objects.create(note=Note.objects.get(pk=2), cust_note=User.objects.get(pk=3))
+CustNote.objects.create(note=Note.objects.get(pk=3), cust_note=User.objects.get(pk=3))
+CustNote.objects.create(note=Note.objects.get(pk=4), cust_note=User.objects.get(pk=3))
+CustNote.objects.create(note=Note.objects.get(pk=5), cust_note=User.objects.get(pk=3))
 CustNote.objects.create(note=Note.objects.get(pk=6), cust_note=User.objects.get(pk=3))    
 CustNote.objects.create(note=Note.objects.get(pk=7), cust_note=User.objects.get(pk=3))  
 CustNote.objects.create(note=Note.objects.get(pk=8), cust_note=User.objects.get(pk=3)) 
@@ -57,4 +37,9 @@ CustNote.objects.create(note=Note.objects.get(pk=11), cust_note=User.objects.get
 CustNote.objects.create(note=Note.objects.get(pk=12), cust_note=User.objects.get(pk=3)) 
 CustNote.objects.create(note=Note.objects.get(pk=13), cust_note=User.objects.get(pk=3)) 
 CustNote.objects.create(note=Note.objects.get(pk=14), cust_note=User.objects.get(pk=3)) 
-CustNote.objects.create(note=Note.objects.get(pk=15), cust_note=User.objects.get(pk=3)) 
+CustNote.objects.create(note=Note.objects.get(pk=15), cust_note=User.objects.get(pk=3))
+CustNote.objects.create(note=Note.objects.get(pk=16), cust_note=User.objects.get(pk=3))
+CustNote.objects.create(note=Note.objects.get(pk=17), cust_note=User.objects.get(pk=3))
+CustNote.objects.create(note=Note.objects.get(pk=18), cust_note=User.objects.get(pk=3))
+CustNote.objects.create(note=Note.objects.get(pk=19), cust_note=User.objects.get(pk=3))
+CustNote.objects.create(note=Note.objects.get(pk=20), cust_note=User.objects.get(pk=3))

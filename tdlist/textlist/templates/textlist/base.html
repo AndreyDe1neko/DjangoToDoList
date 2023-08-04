@@ -14,16 +14,6 @@
 </head>
 
 <body>
-{#    <!-- {% getnote as notes_all%}#}
-{#    {% for i in notes_all %}#}
-{#    <h1>{{i}}</h1>#}
-{#    {% endfor %} -->#}
-{##}
-{#        <!-- Вертикальное меню -->#}
-{##}
-{##}
-{#    <!-- {% show_notes_by_days %} -->#}
-
 
 <nav class="navbar bga">
     {% block mainmenu %}
@@ -34,7 +24,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="{% url 'notes' %}">
+                <a class="nav-link" href="{% url 'notes' '3'%}">
                     <div class="liitem">Мої нотатки</div>
                 </a>
             </li>
@@ -57,7 +47,9 @@
                 </li>
             {% endif %}
         </ul>
+
     {% endblock mainmenu %}
+
 </nav>
 
 

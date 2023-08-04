@@ -16,15 +16,16 @@ def index(request):
     return render(request, 'textlist/index.html', context)
 
 
-def notes(request, now_day_on_week=datetime.isoweekday(datetime.now())):
+def notes(request, day_of_week=datetime.isoweekday(datetime.now())):
     if request.user.is_authenticated:
         current_user = request.user
         all_notes_id = CustNote.objects.filter(cust_note=current_user.id)
         all_notes = Note.objects.filter(id__in=all_notes_id).order_by('time_note')
+
         context = {
             'title': "Розпорядок дня",
             'all_cust_note': all_notes,
-            'week_day': now_day_on_week
+            'week_day': day_of_week
         }
     else:
         return redirect('auth')
@@ -57,7 +58,7 @@ def auth(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('notes')
+                return redirect(f'notes/{datetime.isoweekday(datetime.now())}')
             else:
                 messages.error(request, "Неправильне ім'я користувача або пароль.")
         else:
@@ -67,6 +68,7 @@ def auth(request):
         'form': form
     }
     return render(request, 'textlist/auth.html', context)
+
 
 
 def regist(request):
@@ -93,6 +95,9 @@ def logout_view(request):
     logout(request)
     return redirect('auth')
 
+# @requaire_POST
+def create_note(request):
+     pass
 
 @csrf_exempt
 def delete_note(request, note_id):

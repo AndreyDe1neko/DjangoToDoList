@@ -18,7 +18,7 @@ class Note(models.Model):
     #     return reverse('note', kwargs={'note_slug': self.slug})
 
     class Meta:
-        verbose_name="Нотатка"
+        verbose_name = "Нотатка"
         verbose_name_plural = "Нотатки"
         ordering = ["title_note", "time_note"]
 
