@@ -95,14 +95,22 @@ def logout_view(request):
 
 # @requaire_POST
 
-def create_note(request):
-     pass
-
+def create_note(request, current_day_of_week):
+    try:
+        new_note = Note.objects.create(title_note="", time_note="00:00:00", text_note="black", telegram_send=False, day_of_week=current_day_of_week)
+        current_user = request.user
+        CustNote.objects.create(note=Note.objects.get(pk=new_note.id), cust_note=User.objects.get(pk=current_user.id))
+        return JsonResponse({}, status=204)
+    except Note.DoesNotExist:
+        return JsonResponse({'error': 'Запис не знайдено'}, status=404)
+    except Exception as e:
+        return JsonResponse({'error': str(e)}, status=500)
 
 def delete_note(request, delete_note_id):
 
     current_user = request.user
     all_user_notes_id = CustNote.objects.filter(cust_note=current_user.id)
+    print(all_user_notes_id)
     all_notes_id = [i.note_id for i in all_user_notes_id]
     if delete_note_id in all_notes_id:
         try:
@@ -114,7 +122,37 @@ def delete_note(request, delete_note_id):
         except Exception as e:
             return JsonResponse({'error': str(e)}, status=500)
     else:
-        print("suck dick")
+        return HttpResponseNotFound("Попытка удалить не свою запись ")
+
+def ref_note(request, refactor_note_id):
+
+    if request.user.is_authenticated:
+        current_user = request.user
+        all_user_notes_id = CustNote.objects.filter(cust_note=current_user.id)
+        all_notes_id = [i.note_id for i in all_user_notes_id]
+        if refactor_note_id in all_notes_id:
+            if request.method == 'POST':
+                note_id = request.POST.get('note_id')
+                title_text_cur = request.POST.get('title_text_up')
+                text_note_cur = request.POST.get('text_note_up')
+                getTime = request.POST.get('getTime')
+                try:
+                    note = Note.objects.get(id=note_id)
+                    note.title_note = title_text_cur
+                    note.text_note = text_note_cur
+                    note.time_note = getTime
+                    note.save()
+                    return JsonResponse({}, status=204)
+                except Note.DoesNotExist:
+                    return JsonResponse({'success': False, 'message': 'Note does not exist.'})
+            else:
+                return JsonResponse({'error': True}, status=204)
+        else:
+            return JsonResponse({'success': False, 'message': "It's not your note"})
+    else:
+        redirect('auth')
+    # else:
+    #     return JsonResponse({'error': True}, status=204)
 
 # def categories(request, catid):
 #     if request.GET:

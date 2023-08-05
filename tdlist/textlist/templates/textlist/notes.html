@@ -17,24 +17,26 @@
         </ul>
     </div>
     <div class="vertical-block1">
+        <a href="{% url 'create_note' week_day %}">
         <button class="vertical-block-todo plus" id="new_note_button">
             <img src="{% static 'textlist/images/plus.svg' %}" class="plus1">
         </button>
+        </a>
     <div class="container-vertical" id = "all_notes">
         {% for note in all_cust_note %}
             {% if note.day_of_week == week_day %}          <!--День тижня-->
                 <div id = "notes_block">
             <div class="vertical-block-todo" >
                 <div class="right-side-button">
-                    <input type="time" id="time" name="time" class="title-time" value="{{ note.time_note }}"
-                        pattern="[0-2][0-9]:[0-5][0-9]" />
+                    <input type="time" id="note_time_{{ note.pk }}" name="time" class="title-time" value="{{ note.time_note }}"
+                        pattern="[0-2][0-9]:[0-5][0-9]" readonly/>
                     <div>
                         <button class="refactor-buttons" id="t_{{note.pk}}"><img
-                                src="{% static 'textlist/images/telegram.svg' %}" class="telegram-button"></button> </a>
-                        <a href="http://127.0.0.1:8000/delete_note/{{ note.pk }}"><button class="refactor-buttons" id="d_{{note.pk}}"><img
+                                src="{% static 'textlist/images/telegram.svg' %}" class="telegram-button"></button>
+                        <a href="{% url 'delete_note' note.pk %}"><button class="refactor-buttons" id="d_{{note.pk}}"><img
                                 src="{% static 'textlist/images/delete_button.svg' %}" class="telegram-button" onclick="deleteNote('{{note.pk}}')"></button></a>
-                        <button class="refactor-buttons" id="e_{{note.pk}}" onclick="toggleContentEditable('{{note.pk}}')">
-                            <img src="{% static 'textlist/images/editing.svg' %}" class="telegram-button"></button>
+                        <a href="{% url 'refactor_note' note.pk %}"><button class="refactor-buttons" id="e_{{note.pk}}" onclick="toggleContentEditable('{{note.pk}}')">
+                            <img src="{% static 'textlist/images/editing.svg' %}" class="telegram-button"></button></a>
                     </div>
                 </div>
                 <div class="line-from-todo-det"></div>
@@ -56,17 +58,41 @@
     function toggleContentEditable(noteId) {
         let titleTextElement = document.getElementById("title_text_" + noteId);
         let TextNoteElement = document.getElementById("text_note_" + noteId);
+        let TimeNoteElement = document.getElementById('note_time_' + noteId);
+        console.log(TimeNoteElement);
         let editButton = document.getElementById("e_" + noteId).querySelector("img");
-
-        console.log(editButton)
         if (titleTextElement.contentEditable === "true") {
-            titleTextElement.contentEditable = "false";
-            TextNoteElement.contentEditable = "false";
-            // Змінити зображення, коли режим редагування вимкнено
-            editButton.src = "{%  static 'textlist/images/editing.svg' %}";
-        } else {
+
+            var title_text_up = $('#title_text_' + noteId).html();
+            var text_note_up = $('#text_note_' + noteId).html();
+            var getTime = document.getElementById('note_time_' + noteId).value;
+            console.log(title_text_up + "     " + text_note_up + "     " + getTime);
+            $.ajax({
+                type: 'POST',
+                url: '/refactor_note/' + noteId + "/",
+                data: {
+                    'note_id': noteId,
+                    'title_text_up': title_text_up,
+                    'text_note_up': text_note_up,
+                    'getTime': getTime,
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                },
+                dataType: 'json',
+                success: function (data){
+                    titleTextElement.contentEditable = "false";
+                    TextNoteElement.contentEditable = "false";
+                    TimeNoteElement.setAttribute('readonly', 'false');
+                    // Змінити зображення, коли режим редагування вимкнено
+                    editButton.src = "{%  static 'textlist/images/editing.svg' %}";
+                }
+            });
+
+
+        }
+        else {
             titleTextElement.contentEditable = "true";
             TextNoteElement.contentEditable = "true";
+            TimeNoteElement.removeAttribute('readonly');
             // Змінити зображення, коли режим редагування увімкнено
             editButton.src = "{%  static 'textlist/images/save.svg' %}";
         }
@@ -76,7 +102,7 @@
     function deleteNote(noteId) {
         var elementToDelete = document.getElementById("d_" + noteId).closest('.vertical-block-todo');
 
-        $(elementToDelete).animate({ left: "-1000px", opacity: 0}, 600, function() {
+        $(elementToDelete).animate({ right: "-1000px", opacity: 0}, 600, function() {
             elementToDelete.remove();
         });
     }
@@ -92,7 +118,7 @@
                     <div>
                         <button class="refactor-buttons" id="t_{{note.pk}}"><img
                                 src="{% static 'textlist/images/telegram.svg' %}" class="telegram-button"></button>
-                        <button class="refactor-buttons" id="d_{{note.pk}}"><img
+                        <button class="refactor-buttons" id=""><img
                                 src="{% static 'textlist/images/delete_button.svg' %}" class="telegram-button" onclick="deleteNote('{{note.pk}}')"></button>
                         <button class="refactor-buttons" id="e_{{note.pk}}" onclick="toggleContentEditable('{{note.pk}}')">
                             <img src="{% static 'textlist/images/editing.svg' %}" class="telegram-button"></button>
@@ -106,7 +132,10 @@
            $('#all_notes').html(newNote + prevState);
 
         });
+
     });
+
+
 
 </script>
 {% endblock %}
