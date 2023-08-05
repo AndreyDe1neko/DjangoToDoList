@@ -102,32 +102,31 @@
     function deleteNote(noteId) {
         var elementToDelete = document.getElementById("d_" + noteId).closest('.vertical-block-todo');
 
-        $(elementToDelete).animate({ right: "-1000px", opacity: 0}, 600, function() {
+        $(elementToDelete).animate({ left: "300px", opacity: 0}, 600, function() {
             elementToDelete.remove();
         });
     }
 
     $(function(){
         $("#new_note_button").click(function(){
-
             let prevState = $("#all_notes").html();
             let newNote = `<div class="vertical-block-todo" >
                 <div class="right-side-button">
                     <input type="time" id="time" name="time" class="title-time" value="00:00:00"
                         pattern="[0-2][0-9]:[0-5][0-9]" />
                     <div>
-                        <button class="refactor-buttons" id="t_{{note.pk}}"><img
+                        <button class="refactor-buttons" id="t_"><img
                                 src="{% static 'textlist/images/telegram.svg' %}" class="telegram-button"></button>
                         <button class="refactor-buttons" id=""><img
                                 src="{% static 'textlist/images/delete_button.svg' %}" class="telegram-button" onclick="deleteNote('{{note.pk}}')"></button>
-                        <button class="refactor-buttons" id="e_{{note.pk}}" onclick="toggleContentEditable('{{note.pk}}')">
+                        <button class="refactor-buttons" id="e_" onclick="toggleContentEditable('')">
                             <img src="{% static 'textlist/images/editing.svg' %}" class="telegram-button"></button>
                     </div>
                 </div>
                 <div class="line-from-todo-det"></div>
-                <div class="title-text" contenteditable="false" id="title_text_{{note.pk}}">{{note.title_note}}</div>
+                <div class="title-text" contenteditable="false" id="title_text_"></div>
                 <div class="line-from-todo-det-under-title"></div>
-                <div class="todotext" contenteditable="false" id="text_note_{{note.pk}}">{{ note.text_note }}</div></div>`;
+                <div class="todotext" contenteditable="false" id="text_note_"></div></div>`;
 
            $('#all_notes').html(newNote + prevState);
 

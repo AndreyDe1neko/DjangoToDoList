@@ -25,7 +25,7 @@ class NewUserForm(UserCreationForm):
             'email': forms.TextInput(attrs={
                 'type': 'email',
                 'name': 'email',
-                'placeholder': "Hitler@jew.hot"
+                'placeholder': "example@gmail.com"
             })
         }
 

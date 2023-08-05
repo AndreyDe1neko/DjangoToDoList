@@ -19,17 +19,18 @@ def index(request):
 def notes(request, day_of_week=datetime.isoweekday(datetime.now())):
     if request.user.is_authenticated:
         current_user = request.user
-        all_notes_id = CustNote.objects.filter(cust_note=current_user.id)
+        all_notes_id = CustNote.objects.filter(cust_note=current_user.id).values_list('note_id', flat=True)
+        print(all_notes_id)
         all_notes = Note.objects.filter(id__in=all_notes_id).order_by('time_note')
-
         context = {
             'title': "Розпорядок дня",
             'all_cust_note': all_notes,
             'week_day': day_of_week
         }
+        return render(request, 'textlist/notes.html', context)
     else:
         return redirect('auth')
-    return render(request, 'textlist/notes.html', context)
+
 
 
 # def show_note(request, note_slug):
@@ -97,9 +98,16 @@ def logout_view(request):
 
 def create_note(request, current_day_of_week):
     try:
-        new_note = Note.objects.create(title_note="", time_note="00:00:00", text_note="black", telegram_send=False, day_of_week=current_day_of_week)
+        new_note = Note.objects.create(title_note="", time_note="00:00:00", text_note="black", telegram_send=False,
+                                       day_of_week=current_day_of_week)
         current_user = request.user
-        CustNote.objects.create(note=Note.objects.get(pk=new_note.id), cust_note=User.objects.get(pk=current_user.id))
+
+        cust_note = Note.objects.get(id=new_note.id)
+
+        user_curr = User.objects.get(id=current_user.id)
+        print(f'{cust_note}  +  {user_curr}')
+        c1 = CustNote(note=cust_note, cust_note=user_curr)
+        c1.save()
         return JsonResponse({}, status=204)
     except Note.DoesNotExist:
         return JsonResponse({'error': 'Запис не знайдено'}, status=404)
