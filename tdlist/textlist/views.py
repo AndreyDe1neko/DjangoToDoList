@@ -96,9 +96,10 @@ def logout_view(request):
 
 # @requaire_POST
 
+
 def create_note(request, current_day_of_week):
     try:
-        new_note = Note.objects.create(title_note="", time_note="00:00:00", text_note="black", telegram_send=False,
+        new_note = Note.objects.create(title_note="", time_note="00:00:00", text_note="", telegram_send=False,
                                        day_of_week=current_day_of_week)
         current_user = request.user
 
@@ -106,13 +107,15 @@ def create_note(request, current_day_of_week):
 
         user_curr = User.objects.get(id=current_user.id)
         print(f'{cust_note}  +  {user_curr}')
-        c1 = CustNote(note=cust_note, cust_note=user_curr)
-        c1.save()
-        return JsonResponse({}, status=204)
+        data = CustNote(note=cust_note, cust_note=user_curr)
+        data.save()
+        print(data.pk)
+        return JsonResponse(data.pk, safe=False)
     except Note.DoesNotExist:
         return JsonResponse({'error': 'Запис не знайдено'}, status=404)
     except Exception as e:
         return JsonResponse({'error': str(e)}, status=500)
+
 
 def delete_note(request, delete_note_id):
 
