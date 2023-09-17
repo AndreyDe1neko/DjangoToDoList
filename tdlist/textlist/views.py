@@ -1,13 +1,13 @@
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.contrib.auth import authenticate, login, logout
+from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
-from .models import *
+from acc.models import User
 from .forms import *
 from datetime import datetime
-from django.views.decorators.csrf import csrf_exempt
-
+from django.contrib.auth import get_user_model
 
 def index(request):
     context = {
@@ -68,53 +68,7 @@ def about(request):
     }
     return render(request, 'textlist/about.html', context)
 
-
-def auth(request):
-    if request.method == "POST":
-        form = LoginForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                return redirect(f'notes/{datetime.isoweekday(datetime.now())}')
-            else:
-                messages.error(request, "Неправильне ім'я користувача або пароль.")
-        else:
-            messages.error(request, "Неправильне ім'я користувача або пароль.")
-    form = LoginForm()
-    context = {
-        'form': form
-    }
-    return render(request, 'textlist/auth.html', context)
-
-
-def regist(request):
-    if request.method == "POST":
-        form = NewUserForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, "Registration successful.")
-            return redirect('notes/1/')
-        messages.error(request, "Невдала реєстрація. Перевірте правильність введеної інформації.")
-    form = NewUserForm()
-
-    context = {
-        'form': form
-    }
-
-    return render(request, 'textlist/reg.html', context)
-
-
-def logout_view(request):
-    logout(request)
-    return redirect('auth')
-
-
-# @requaire_POST
-
+# Import get_user_model
 
 def create_note(request, current_day_of_week):
     if current_day_of_week <= 7 or current_day_of_week >= 1:
@@ -125,12 +79,14 @@ def create_note(request, current_day_of_week):
 
             cust_note = Note.objects.get(id=new_note.id)
 
+            User = get_user_model()  # Get the custom User model
             user_curr = User.objects.get(id=current_user.id)
             print(f'{cust_note}  +  {user_curr}')
             data = CustNote(note=cust_note, cust_note=user_curr)
             data.save()
-            print(data.pk)
-            return JsonResponse(data.pk, safe=False)
+            print(current_user)
+            print("--------------", data)
+            return JsonResponse(cust_note.pk, safe=False)
         except Note.DoesNotExist:
             return JsonResponse({'error': 'Запис не знайдено'}, status=400)
         except Exception as e:

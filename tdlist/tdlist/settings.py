@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     "textlist.apps.TextlistConfig",             #Регистрация приложения
+    "acc.apps.AccConfig",
 ]
 
 CSRF_TRUSTED_ORIGINS = ["https://*.ngrok-free.app"]
@@ -54,6 +55,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'tdlist.urls'
+
+AUTH_USER_MODEL = "acc.User"
 
 TEMPLATES = [
     {

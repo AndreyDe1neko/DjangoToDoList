@@ -17,7 +17,7 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, re_path, include
-from tdlist import settings
+from . import settings
 
 
 from textlist.views import *
@@ -25,6 +25,7 @@ from textlist.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('textlist.urls')), #http://127.0.0.1:8000/
+    path('', include('acc.ulrs')),
 ]
 
 if settings.DEBUG:
