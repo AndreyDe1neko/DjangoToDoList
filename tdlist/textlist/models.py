@@ -1,8 +1,10 @@
 from django.db import models
 from django.urls import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
+from django.conf import settings
 
 # Create your models here.
+
 
 class Note(models.Model):
     title_note = models.TextField(max_length=255, blank=True)
@@ -22,9 +24,10 @@ class Note(models.Model):
         verbose_name_plural = "Нотатки"
         ordering = ["title_note", "time_note"]
 
+
 class CustNote(models.Model):
-    note = models.ForeignKey('Note', on_delete=models.CASCADE, unique=True)
-    cust_note = models.ForeignKey(User, on_delete=models.PROTECT)
+    note = models.OneToOneField('Note', on_delete=models.CASCADE)
+    cust_note = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.PROTECT)
 
 
 

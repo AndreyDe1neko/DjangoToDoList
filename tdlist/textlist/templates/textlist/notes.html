@@ -126,11 +126,12 @@
         }
 
         function new_note_button(week_day) {
-
             $.ajax({
                 type: 'GET',
                 url: '/create_note/' + week_day + '/',
+
                 success: function (data) {
+
                     let prevState = $("#all_notes").html();
                     let newNote = `<div class="vertical-block-todo" id="vertical_block_${data}">
                                     <div class="right-side-button">
