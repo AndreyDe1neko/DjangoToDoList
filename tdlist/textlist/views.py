@@ -46,7 +46,7 @@ def notes(request, day_of_week=datetime.isoweekday(datetime.now())):
             }
             return render(request, 'textlist/notes.html', context)
         else:
-            return redirect('auth')
+            return redirect('login')
     else:
         return JsonResponse({'error': 'Запис не знайдено'}, status=404)
 

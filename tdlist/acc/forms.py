@@ -5,6 +5,7 @@ from .models import *
 
 # Create your forms here.
 
+
 class NewUserForm(UserCreationForm):
     password1 = forms.CharField(max_length=16, widget=forms.PasswordInput(
         attrs={
@@ -14,6 +15,7 @@ class NewUserForm(UserCreationForm):
         attrs={
             'placeholder': '********'
         }))
+
     class Meta:
         model = User
         fields = ("username", "email", "password1", "password2")
@@ -30,18 +32,19 @@ class NewUserForm(UserCreationForm):
         }
 
 
-class LoginForm(AuthenticationForm):
+class UserAuthentication(AuthenticationForm):
     password = forms.CharField(max_length=16, widget=forms.PasswordInput(
         attrs={
             'class': 'textbox-auth',
             'placeholder': '********'
         }))
+
     class Meta:
         model = User
-        fields = ("username", "password")
+        fields = ("email", "password")
         widgets = {'username': forms.TextInput(attrs={
                     'class': 'textbox-auth',
-                    'placeholder': 'Kurobyro',
-                    'type': 'username'
+                    'placeholder': 'Gitler@gmail.com',
+                    'type': 'email'
                 })
         }
