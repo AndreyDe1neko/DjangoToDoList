@@ -1,0 +1,8 @@
+{% extends 'textlist/base.html' %}
+
+{% block content %}
+<h1>{{title}}</h1>
+{% if note %}
+    <h2>{{note.text_note}}</h2>
+{% endif %}
+{% endblock %}

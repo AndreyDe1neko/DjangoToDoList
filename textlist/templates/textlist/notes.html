@@ -1,0 +1,163 @@
+{% extends 'textlist/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="main-container">
+
+        <div class="days-of-week">
+            <ul class="listdo">
+                {% for day_of_week_num, day_of_week_name in  static_week_days %}
+                    <a href="{% url 'notes' day_of_week_num %}" id="day_of_week_{{ day_of_week_num }}">
+                        <li class="dolist-element todl-bet">{{ day_of_week_name }}</li>
+                    </a>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="vertical-block1">
+            <button class="vertical-block-todo plus" onclick='new_note_button({{ week_day }})'>
+                <img src="{% static 'textlist/images/plus.svg' %}" class="plus1">
+            </button>
+            <div class="container-vertical" id="all_notes">
+                {% for note in all_cust_note %}
+                    {% if note.day_of_week == week_day %}          <!--День тижня-->
+                        <div id="notes_block">
+                            <div class="vertical-block-todo" id="vertical_block_{{ note.pk }}">
+                                <div class="right-side-button">
+                                    <input type="time" id="note_time_{{ note.pk }}" name="time" class="title-time"
+                                           value="{{ note.time_note }}"
+                                           pattern="[0-2][0-9]:[0-5][0-9]" readonly/>
+                                    <div>
+                                        <button class="refactor-buttons" id="t_{{ note.pk }}"><img
+                                                src="{% static 'textlist/images/telegram.svg' %}"
+                                                class="telegram-button"></button>
+
+                                        <button class="refactor-buttons" id="d_{{ note.pk }}"><img
+                                                src="{% static 'textlist/images/delete_button.svg' %}"
+                                                class="telegram-button" onclick="deleteNote('{{ note.pk }}')">
+                                        </button>
+
+                                        <button class="refactor-buttons" id="e_{{ note.pk }}"
+                                                onclick="toggleContentEditable('{{ note.pk }}')">
+                                            <img src="{% static 'textlist/images/editing.svg' %}"
+                                                 class="telegram-button"></button>
+                                    </div>
+                                </div>
+                                <div class="line-from-todo-det"></div>
+                                <div class="title-text" contenteditable="false"
+                                     id="title_text_{{ note.pk }}">{{ note.title_note }}</div>
+                                <div class="line-from-todo-det-under-title"></div>
+                                <div class="todotext" contenteditable="false"
+                                     id="text_note_{{ note.pk }}">{{ note.text_note }}</div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function toggleContentEditable(noteId) {
+            let titleTextElement = document.getElementById("title_text_" + noteId);
+            let TextNoteElement = document.getElementById("text_note_" + noteId);
+            let TimeNoteElement = document.getElementById('note_time_' + noteId);
+            let VerticalNoteElement = document.getElementById('vertical_block_' + noteId);
+
+            console.log(TimeNoteElement);
+            let editButton = document.getElementById("e_" + noteId).querySelector("img");
+            if (titleTextElement.contentEditable === "true") {
+
+                const title_text_up = $('#title_text_' + noteId).html();
+                const text_note_up = $('#text_note_' + noteId).html();
+                const getTime = document.getElementById('note_time_' + noteId).value;
+                console.log(title_text_up + "     " + text_note_up + "     " + getTime);
+                $.ajax({
+                    type: 'POST',
+                    url: '/refactor_note/' + noteId + "/",
+                    data: {
+                        'note_id': noteId,
+                        'title_text_up': title_text_up,
+                        'text_note_up': text_note_up,
+                        'getTime': getTime,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+                        titleTextElement.contentEditable = "false";
+                        TextNoteElement.contentEditable = "false";
+                        TimeNoteElement.setAttribute('readonly', 'false');
+                        VerticalNoteElement.setAttribute('style', 'solid 1px blue');
+                        editButton.src = "{%  static 'textlist/images/editing.svg' %}";
+                    }
+                });
+
+            } else {
+                titleTextElement.contentEditable = "true";
+                TextNoteElement.contentEditable = "true";
+                TimeNoteElement.removeAttribute('readonly');
+
+                VerticalNoteElement.style.boxShadow = " 0 0 30px -10px white";
+                VerticalNoteElement.style.border = '2px solid white';
+                editButton.src = "{%  static 'textlist/images/save.svg' %}";
+            }
+        }
+
+
+        function deleteNote(noteId) {
+            var elementToDelete = document.getElementById("d_" + noteId).closest('.vertical-block-todo');
+            $.ajax({
+                type: 'POST',
+                url: '/delete_note/' + noteId + "/",
+                dataType: 'json',
+                data: {
+                    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                },
+                success: function () {
+                    $(elementToDelete).animate({weight: "0px", opacity: 0}, 100, function () {
+                        elementToDelete.remove();
+                    });
+                }
+            });
+        }
+
+        function new_note_button(week_day) {
+            $.ajax({
+                type: 'GET',
+                url: '/create_note/' + week_day + '/',
+
+                success: function (data) {
+
+                    let prevState = $("#all_notes").html();
+                    let newNote = `<div class="vertical-block-todo" id="vertical_block_${data}">
+                                    <div class="right-side-button">
+                                        <input type="time" id="note_time_${data}" name="time" class="title-time" value="00:00:00"
+                                               pattern="[0-2][0-9]:[0-5][0-9]" readonly/>
+                                        <div>
+                                            <button class="refactor-buttons" id="t_${data}"><img
+                                                    src="{% static 'textlist/images/telegram.svg' %}" class="telegram-button"></button>
+                                                <button class="refactor-buttons" id="d_${data}"><img
+                                                        src="{% static 'textlist/images/delete_button.svg' %}" class="telegram-button"
+                                                        onclick="deleteNote('${data}')"></button>
+                                                <button class="refactor-buttons" id="e_${data}" onclick="toggleContentEditable('${data}')">
+                                                    <img src="{% static 'textlist/images/editing.svg' %}" class="telegram-button"></button>
+                                        </div>
+                                    </div>
+                                    <div class="line-from-todo-det"></div>
+                                    <div class="title-text" contenteditable="false" id="title_text_${data}"></div>
+                                    <div class="line-from-todo-det-under-title"></div>
+                                    <div class="todotext" contenteditable="false" id="text_note_${data}"></div>
+                                </div>`;
+
+                    $('#all_notes').html(newNote + prevState);
+
+                    console.log(data);
+                },
+            });
+        }
+    </script>
+{% endblock %}
