@@ -1,16 +1,10 @@
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
-from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib import messages
 from django.urls import reverse
-
-from .models import *
 from .forms import *
 from datetime import datetime
-from textlist.models import User
-from django.views.decorators.csrf import csrf_exempt
 
 
 def auth(request):
@@ -31,7 +25,7 @@ def auth(request):
     context = {
         'form': form
     }
-    return render(request, 'textlist/auth.html', context)
+    return render(request, 'auth.html', context)
 
 
 def regist(request):
@@ -50,7 +44,7 @@ def regist(request):
         'form': form
     }
 
-    return render(request, 'textlist/reg.html', context)
+    return render(request, 'reg.html', context)
 
 
 def logout_view(request):
