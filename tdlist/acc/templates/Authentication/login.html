@@ -1,0 +1,50 @@
+{% extends 'textlist/base.html' %}
+
+{% block content %}
+
+
+
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+    <div class="login-container-main">
+        <div class="login-container">
+            <div class="login">
+                <h2 class="nonactive" style="font-size: 14px;"><a href="{% url 'registration' %}"> Реєстрація </a></h2>
+                <div class="line-from-todo-det"></div>
+                <h2 class="active" style="text-align: center;"> Вхід </h2>
+                <form action="" method="post">{% csrf_token %}
+                    <div class="textbox-auth text-log">
+                        <span>ім'я користувача</span>
+                        <br>
+                        {{ form.username }}
+
+                        <br>
+                        <span>Пароль</span>
+
+                        <br>
+                        {{ form.password }}
+
+                        <br>
+                        <div style="display: flex; justify-content: center;">
+                            <button class="signin" type="submit">
+                                Увійти
+                            </button>
+                        </div>
+
+                        <hr>
+
+                        <a href="{% url 'password_reset' %}">Forgot Password?</a>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="" style="text-align: center; color: darkred; width: auto" role="alert">
+                    <h1>{{ message }}</h1>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -1,7 +1,9 @@
 import threading
 
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView
+from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
+    PasswordResetCompleteView
+
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse, HttpResponseNotFound, Http404, JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
@@ -18,6 +20,7 @@ from django.template.loader import render_to_string
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.conf import settings
 from django.db import IntegrityError
+
 
 class EmailThread(threading.Thread):
     def __init__(self, email):
@@ -46,27 +49,32 @@ def send_action_email(user, request):
     EmailThread(email).start()
 
 
-def auth(request):
+def login_view(request):
+    form = LoginForm()
+    context = {
+        'form': form,
+    }
     if request.method == "POST":
         form = LoginForm(request, data=request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
+            print(user.is_email_verified)
             if user is not None:
-                login(request, user)
-                return redirect(f'notes/{datetime.isoweekday(datetime.now())}')
+                if user.is_email_verified:
+                    login(request, user)
+                    return redirect(f'notes/{datetime.isoweekday(datetime.now())}')
+                else:
+                    messages.error(request, "Пошта не підтверджена")
             else:
                 messages.error(request, "Неправильне ім'я користувача або пароль.")
         else:
             messages.error(request, "Неправильне ім'я користувача або пароль.")
-    form = LoginForm()
-    context = {
-        'form': form
-    }
+
 
         # messages.add_message(request, messages.SUCCESS, f'Well cum {user.email}')
-    return render(request, 'Authentication/auth.html', context)
+    return render(request, 'Authentication/login.html', context)
 
 
 def regist(request):
@@ -103,7 +111,7 @@ def regist(request):
         'form': form
     }
 
-    return render(request, 'Authentication/reg.html', context)
+    return render(request, 'Authentication/registration.html', context)
 
 
 def logout_view(request):
@@ -130,12 +138,16 @@ def activate_user(request, uidb64, token):
 
 
 class WebPasswordResetView(PasswordResetView):
-    template_name = 'authentication/password_reset_email.html'
+    template_name = 'Authentication/password_reset_email.html'
 
 
 class WebPasswordResetDoneView(PasswordResetDoneView):
-    template_name = 'authentication/password_reset_done.html'
+    template_name = 'Authentication/password_reset_done.html'
 
 
 class WebPasswordResetConfirmationView(PasswordResetConfirmView):
-    template_name = 'authentication/password_reset_confirmation.html'
+    template_name = 'Authentication/password_reset_confirmation.html'
+
+
+class WebPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'Authentication/password_reset_complete.html'

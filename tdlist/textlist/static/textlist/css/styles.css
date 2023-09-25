@@ -388,6 +388,7 @@ a:hover{
 	font-family: sans-serif;
 	font-weight: bold;
 }
+
 .login-container::before {
 	content: '';
 	position: absolute;
